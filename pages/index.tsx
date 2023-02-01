@@ -2,6 +2,8 @@ import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "@/feature/firebase";
+import { Typography } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function Home() {
   return (
@@ -13,15 +15,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div
+        <div 
           onClick={() => {
             signInWithPopup(auth, provider)
               .then((result) => console.log(result.user))
               .catch((error) => alert(error.message));
           }}
         >
-          hello
+          hello how are you today
         </div>
+        <Typography variant="h4" component="h1">今日は良い天気ですね</Typography>
+        <FavoriteIcon />
       </main>
     </>
   );
