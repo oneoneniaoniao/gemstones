@@ -1,11 +1,16 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
-import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "@/feature/firebase";
-import { Typography } from "@mui/material";
+import { signInWithPopup, signOut } from "firebase/auth";
+import { auth, provider } from "@/features/firebase";
+import { Button, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useAppDispatch, useAppSelector } from "@/features/hooks/reduxHooks";
+import { initUserInfo, selectUser, storeUserInfo } from "@/features/userSlice";
 
 export default function Home() {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+
   return (
     <>
       <Head>
@@ -15,16 +20,39 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div 
+        <p>name:{user.displayName}</p>
+        <div
           onClick={() => {
             signInWithPopup(auth, provider)
-              .then((result) => console.log(result.user))
+              .then((result) => {
+                console.log(result.user);
+                dispatch(
+                  storeUserInfo({
+                    photoURL: "",
+                    displayName: "Maru",
+                    uid: "",
+                    profile: "",
+                  })
+                );
+              })
               .catch((error) => alert(error.message));
           }}
         >
           hello how are you today
         </div>
-        <Typography variant="h4" component="h1">今日は良い天気ですね</Typography>
+        <Typography variant="h4" component="h1">
+          今日は良い天気ですね
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            signOut(auth);
+            dispatch(initUserInfo());
+          }}
+        >
+          logout
+        </Button>
         <FavoriteIcon />
       </main>
     </>
