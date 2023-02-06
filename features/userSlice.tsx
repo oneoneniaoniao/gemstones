@@ -6,7 +6,6 @@ const initialState: UserState = {
   photoURL: "",
   displayName: "initialName",
   uid: "",
-  profile: "",
 };
 
 export const userSlice = createSlice({
