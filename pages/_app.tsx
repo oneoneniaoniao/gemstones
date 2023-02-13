@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
       },
     },
     typography: {
-      fontFamily: ["メイリオ", "Comic Sans MS"].join(","),
+      fontFamily: ["メイリオ", "ヒラギノ角ゴシック"].join(","),
     },
   });
 
