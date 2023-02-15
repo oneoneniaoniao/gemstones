@@ -70,7 +70,9 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
     try {
       await sendPasswordResetEmail(auth, resetEmail);
       setOpenModal(false);
-      alert(`Please check your mail box.\n We've sent reset email instructions to: "${resetEmail}".`);
+      alert(
+        `Please check your mail box.\n We've sent reset email instructions to: "${resetEmail}".`
+      );
       setResetEmail("");
     } catch (err: any) {
       alert(err.message);
@@ -79,10 +81,10 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
   };
 
   const signInGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // Check if the user is already registered in the database
-        getDoc(doc(db, "users", result.user!.uid)).then((res) => {
+    signInWithPopup(auth, provider).then((result) => {
+      // Check if the user is already registered in the database
+      getDoc(doc(db, "users", result.user!.uid))
+        .then((res) => {
           // If the user is not registered, register the user in the database
           if (res?.data() === undefined) {
             setDoc(doc(db, "users", result.user.uid), {
@@ -95,29 +97,33 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
           } else {
             dispatch(storeLoginUserID(res.id));
           }
-        });
-        setOpenAuthModal(false);
-        router.push(nextPath || "/");
-      })
-      .catch((error) => alert(error.message));
+        })
+        .then(() => {
+          setOpenAuthModal(false);
+          router.push(nextPath || "/");
+        })
+        .catch((error) => alert(error.message));
+    });
   };
 
   const signInEmail = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        // Get the user information from the firebase database and store it in redux
-        getDoc(doc(db, "users", res.user.uid)).then((res) => {
+    signInWithEmailAndPassword(auth, email, password).then((res) => {
+      // Get the user information from the firebase database and store it in redux
+      getDoc(doc(db, "users", res.user.uid))
+        .then((res) => {
           dispatch(storeLoginUserID(res.id));
+        })
+        .then(() => {
+          setEmail("");
+          setPassword("");
+          setAvatarImage(null);
+          setOpenAuthModal(false);
+          router.push(nextPath || "/");
+        })
+        .catch((err) => {
+          alert(err.message);
         });
-        setEmail("");
-        setPassword("");
-        setAvatarImage(null);
-        setOpenAuthModal(false);
-        router.push(nextPath || "/");
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+    });
   };
   const signUpEmail = async () => {
     const authUser = await createUserWithEmailAndPassword(
@@ -143,9 +149,9 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
         photoURL: url,
         profile: "",
       }),
+      dispatch(storeLoginUserID(authUser.user.uid)),
     ])
       .then(() => {
-        dispatch(storeLoginUserID(authUser.user.uid));
         setIsLogin(true);
         setEmail("");
         setPassword("");
@@ -158,11 +164,10 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
         alert(err.message);
       });
   };
-  
 
   return (
     <>
-      <Modal open={openAuthModal} onClose={() => setOpenAuthModal(false)}  >
+      <Modal open={openAuthModal} onClose={() => setOpenAuthModal(false)}>
         <Paper
           sx={{
             position: "absolute",
@@ -342,7 +347,10 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
                 fullWidth
                 variant="outlined"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={() => setOpenAuthModal(false)}
+                onClick={() => {
+                  setOpenAuthModal(false);
+                  router.push(`${location.pathname}`);
+                }}
               >
                 Cancel
               </Button>

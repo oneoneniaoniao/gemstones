@@ -48,6 +48,7 @@ const Layout = ({ children }: { children?: ReactNode }) => {
 
   // Check if user is logged in
   React.useEffect(() => {
+    alert("login user id is: " + loginUserID); // TODO: delete this line before production
     const unSub = onAuthStateChanged(auth, (userAuth) => {
       if (userAuth) {
         getDoc(doc(db, "users", userAuth.uid)).then((res) => {
@@ -59,15 +60,6 @@ const Layout = ({ children }: { children?: ReactNode }) => {
     });
     return unSub;
   }, []);
-
-  // when user is logged out, redirect to home page if user was on myPage or newPost page
-  React.useEffect(() => {
-    if (!loginUserID) {
-      if (router.pathname === "/myPage" || router.pathname === "/newPost") {
-        router.push("/");
-      }
-    }
-  }, [loginUserID]);
 
   const handleSignOut = () => {
     signOut(auth).catch((error) => {
@@ -87,7 +79,7 @@ const Layout = ({ children }: { children?: ReactNode }) => {
         setNextPath(path);
         setOpenAuthModal(true);
       }else{
-        router.push("/")
+        router.push(`${location.pathname}`)
       }
     }
   };
