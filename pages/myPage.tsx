@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import {
   collection,
   getDocs,
@@ -14,6 +15,7 @@ import EditProfileModal from "@/components/modals/EditProfileModal";
 import { db } from "@/features/firebase";
 
 const myPage = () => {
+  const router = useRouter();
   const loginUserID = useAppSelector(selectLoginUserID);
   const [openModal, setOpenModal] = React.useState(false);
   const [loginUserInfo, setLoginUserInfo] = React.useState<{
@@ -23,6 +25,11 @@ const myPage = () => {
   }>();
 
   React.useEffect(() => {
+    if (!loginUserID) {
+      if (router.pathname === "/myPage" || router.pathname === "/newPost") {
+        router.push("/");
+      }
+    }
     getDocs(query(collection(db, "users")))
       .then((querySnapshot: QuerySnapshot) => {
         querySnapshot.forEach((doc: QueryDocumentSnapshot) => {
