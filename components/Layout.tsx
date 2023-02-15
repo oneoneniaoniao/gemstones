@@ -87,7 +87,7 @@ const Layout = ({ children }: { children?: ReactNode }) => {
         setNextPath(path);
         setOpenAuthModal(true);
       }else{
-        router.push("/")
+        router.push(`${location.pathname}`)
       }
     }
   };
