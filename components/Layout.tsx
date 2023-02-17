@@ -48,8 +48,8 @@ const Layout = ({ children }: { children?: ReactNode }) => {
 
   // Check if user is logged in
   React.useEffect(() => {
-    alert("login user id is: " + loginUserID); // TODO: delete this line before production
     const unSub = onAuthStateChanged(auth, (userAuth) => {
+      // alert("Login User ID: " + userAuth?.uid + "!") //TODO: delete this line before production
       if (userAuth) {
         getDoc(doc(db, "users", userAuth.uid)).then((res) => {
           dispatch(storeLoginUserID(res.id));
@@ -75,11 +75,11 @@ const Layout = ({ children }: { children?: ReactNode }) => {
     if (loginUserID) {
       router.push(path);
     } else {
-      if(confirm("Please login or sign up first.")){
+      if (confirm("Please login or sign up first.")) {
         setNextPath(path);
         setOpenAuthModal(true);
-      }else{
-        router.push(`${location.pathname}`)
+      } else {
+        router.push(`${location.pathname}`);
       }
     }
   };
@@ -97,7 +97,7 @@ const Layout = ({ children }: { children?: ReactNode }) => {
       <Box>
         <Box
           sx={{
-            borderBottom: `1px solid ${pink[100]}`,
+            // borderBottom: `1px solid ${pink[100]}`,
             background: "rgba(255,230,240,1)",
             width: "100%",
             height: "3rem",
@@ -109,6 +109,7 @@ const Layout = ({ children }: { children?: ReactNode }) => {
           }}
         >
           <Box
+            onClick={() => router.push("/")}
             sx={{
               display: "flex",
               flexDirection: "row",
@@ -118,11 +119,12 @@ const Layout = ({ children }: { children?: ReactNode }) => {
               maxWidth: "620px",
               margin: "0 auto",
               padding: "0 1.5rem",
+              "&:hover": {cursor: "pointer"},
             }}
           >
             <Typography
               variant="h5"
-              color={grey[800]}
+              color="primary"
               sx={{ fontFamily: "Comic Sans MS" }}
             >
               Gemstones
@@ -174,7 +176,7 @@ const Layout = ({ children }: { children?: ReactNode }) => {
             height: "100%",
             alignItems: "center",
             maxWidth: "620px",
-            margin: "3rem auto 0 auto",
+            margin: "3rem auto",
             padding: "1rem 1rem",
           }}
         >
@@ -182,7 +184,7 @@ const Layout = ({ children }: { children?: ReactNode }) => {
         </Box>
         <BottomNavigation
           sx={{
-            borderTop: `1px solid ${pink[100]}`,
+            // borderTop: `1px solid ${pink[100]}`,
             position: "fixed",
             bottom: 0,
             left: 0,
