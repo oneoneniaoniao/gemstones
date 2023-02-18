@@ -44,7 +44,7 @@ const sortedOptions = [
 ];
 
 type Props = {
-  setMaterial: React.Dispatch<React.SetStateAction<MaterialType>>;
+  setMaterial: React.Dispatch<React.SetStateAction<MaterialType[]>>;
 };
 
 const MaterialSelect = ({ setMaterial }: Props) => {
