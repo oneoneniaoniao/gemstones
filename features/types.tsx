@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type PostType = {
   id: string;
   uid: string;
@@ -20,8 +22,15 @@ export type PostType = {
     | "";
   category: "bracelet" | "earring" | "necklace" | "ring" | "other" | "";
   likedBy: string[];
-  createdAt: string;
-  editedAt: string;
+  createdAt: Timestamp;
+  editedAt: Timestamp | "";
 };
 
-export type MaterialType = { value: string; label: string }[] | [];
+export type MaterialType = { value: string; label: string } 
+
+export type UserType = {
+  uid: string;
+  displayName: string;
+  photoURL: string;
+  profile: string;
+};

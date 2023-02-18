@@ -29,6 +29,12 @@ const newPost = () => {
   const [category, setCategory] = React.useState("");
 
   React.useEffect(() => {
+    if (!loginUserID) {
+      router.push("/");
+  }
+  })
+
+  React.useEffect(() => {
     if (image) {
       setImageURL(URL.createObjectURL(image));
     }
@@ -53,7 +59,7 @@ const newPost = () => {
       const url = await getDownloadURL(storageRef);
       await addDoc(collection(db, "posts"), {
         uid: loginUserID,
-        topComment: comment,
+        comment: comment,
         comments: [],
         material: [...material, ...birthstone],
         color: color,
