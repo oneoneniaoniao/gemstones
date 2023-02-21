@@ -7,30 +7,27 @@ export type PostType = {
   comment: string;
   comments: { uid: string; comment: string; commentedAt: string }[] | [];
   materials: { value: string; label: string }[] | [];
-  color:
-    | "black"
-    | "white"
-    | "red"
-    | "blue"
-    | "green"
-    | "yellow"
-    | "orange"
-    | "purple"
-    | "other"
-    | "mixed"
-    | "pastel"
-    | "";
-  category: "bracelet" | "earring" | "necklace" | "ring" | "other" | "";
+  color: string;
+  category: string;
   likedBy: string[];
-  createdAt: Timestamp;
+  createdAt: Timestamp,
   editedAt: Timestamp | "";
 };
 
-export type MaterialType = { value: string; label: string } 
+export type MaterialType = { value: string; label: string };
 
 export type UserType = {
   uid: string;
   displayName: string;
   photoURL: string;
   profile: string;
+};
+
+export type PostFeaturesType = {
+  color: string;
+  setColor: React.Dispatch<React.SetStateAction<string>>;
+  category: string;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  material: MaterialType[];
+  setMaterial: React.Dispatch<React.SetStateAction<MaterialType[]>>;
 };
