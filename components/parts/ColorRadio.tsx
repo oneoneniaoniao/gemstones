@@ -10,9 +10,13 @@ import {
 } from "@mui/material/colors";
 import Radio from "@mui/material/Radio";
 import {
+  Box,
   FormControlLabel,
+  IconButton,
   RadioGroup,
+  Typography,
 } from "@mui/material";
+import ReplayOutlinedIcon from '@mui/icons-material/ReplayOutlined';
 
 type Props = {
   color: string;
@@ -33,27 +37,45 @@ const ColorRadio = ({ color: selectedColor, setColor }: Props) => {
   });
 
   return (
-    <RadioGroup sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
-      <Radio {...controlProps("pink")} sx={color.pink} size="small" />
-      <Radio {...controlProps("orange")} sx={color.orange} size="small" />
-      <Radio {...controlProps("green")} sx={color.green} size="small" />
-      <Radio {...controlProps("blue")} sx={color.blue} size="small" />
-      <Radio {...controlProps("purple")} sx={color.purple} size="small" />
-      <Radio {...controlProps("white")} sx={color.white} size="small" />
-      <Radio {...controlProps("black")} sx={color.black} size="small" />
-      <FormControlLabel
-        value="mixed"
-        control={<Radio {...controlProps("mixed")} size="small" />}
-        sx={color.mixed}
-        label="Mixed"
-      />
-      <FormControlLabel
-        value="pastel"
-        control={<Radio {...controlProps("pastel")} size="small" />}
-        sx={color.pastel}
-        label="Pastel"
-      />
-    </RadioGroup>
+    <>
+      <Box
+        sx={{ display: "flex", justifyContent: "flex-start", alignItems:"center", width: "100%" }}
+      >
+        <Typography variant="subtitle1">Color</Typography>
+        <IconButton onClick={()=>setColor("")}>
+          <ReplayOutlinedIcon  sx={{width:"16px", height: "16px"}}/>
+        </IconButton>
+      </Box>
+      <RadioGroup sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
+        <Radio {...controlProps("Pink/Red,")} sx={color.pink} size="small" />
+        <Radio
+          {...controlProps("Orange/Gold,")}
+          sx={color.orange}
+          size="small"
+        />
+        <Radio {...controlProps("Green,")} sx={color.green} size="small" />
+        <Radio {...controlProps("Blue,")} sx={color.blue} size="small" />
+        <Radio {...controlProps("Purple,")} sx={color.purple} size="small" />
+        <Radio
+          {...controlProps("White/Silver,")}
+          sx={color.white}
+          size="small"
+        />
+        <Radio {...controlProps("Black,")} sx={color.black} size="small" />
+        <FormControlLabel
+          value="Mixed"
+          control={<Radio {...controlProps("Mixed,")} size="small" />}
+          sx={color.mixed}
+          label="Mixed"
+        />
+        <FormControlLabel
+          value="Pastel"
+          control={<Radio {...controlProps("Pastel,")} size="small" />}
+          sx={color.pastel}
+          label="Pastel"
+        />
+      </RadioGroup>
+    </>
   );
 };
 
@@ -97,9 +119,9 @@ const color = {
     },
   },
   white: {
-    color: grey[200],
+    color: grey[300],
     "&.Mui-checked": {
-      color: grey[100],
+      color: grey[300],
     },
   },
   black: {

@@ -115,7 +115,7 @@ const myPage = () => {
           }}
         >
           {posts.map((post) => (
-            <Post post={post} users={users} isMyPage={true} />
+            <Post post={post} users={users} key={post.id} isMyPage={true} />
           ))}
         </Box>
       </Box>

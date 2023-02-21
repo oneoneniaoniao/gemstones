@@ -3,6 +3,7 @@ import ReactSelect from "react-select";
 import { Box } from "@mui/system";
 import { birthstoneOptions } from "@/components/parts/BirthstoneSelect";
 import { MaterialType } from "@/features/types";
+import { Typography } from "@mui/material";
 
 const options = [
   ...birthstoneOptions,
@@ -38,24 +39,33 @@ const options = [
   { value: "MotherOfPearl", label: "マザーオブパール" },
 ];
 
-const sortedOptions = [
+export const sortedOptions = [
   ...options.sort((a, b) => a.label.localeCompare(b.label)),
   { value: "Other", label: "その他" },
 ];
 
 type Props = {
   setMaterial: React.Dispatch<React.SetStateAction<MaterialType[]>>;
+  defaultValue?: MaterialType[];
 };
 
-const MaterialSelect = ({ setMaterial }: Props) => {
+const MaterialSelect = ({ setMaterial, defaultValue }: Props) => {
   return (
-    <Box sx={{ width: "100%", mb: 1 }}>
-      <ReactSelect
-        onChange={(e) => setMaterial([...e])}
-        options={sortedOptions}
-        isMulti={true}
-      />
-    </Box>
+    <>
+      <Box sx={{ display: "flex", justifyContent: "start", width: "100%" }}>
+        <Typography variant="subtitle1" fontWeight="bold">
+          Material
+        </Typography>
+      </Box>
+      <Box sx={{ width: "100%", mb: 1 }}>
+        <ReactSelect
+          onChange={(e) => setMaterial([...e])}
+          options={sortedOptions}
+          isMulti={true}
+          defaultValue={defaultValue}
+        />
+      </Box>
+    </>
   );
 };
 

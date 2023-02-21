@@ -1,6 +1,13 @@
 import React from "react";
 import Radio from "@mui/material/Radio";
-import { FormControlLabel, RadioGroup } from "@mui/material";
+import {
+  Box,
+  FormControlLabel,
+  IconButton,
+  RadioGroup,
+  Typography,
+} from "@mui/material";
+import ReplayOutlinedIcon from "@mui/icons-material/ReplayOutlined";
 
 type Props = {
   category: string;
@@ -21,35 +28,52 @@ const CategoryRadio = ({ category, setCategory }: Props) => {
   });
 
   return (
-    <RadioGroup
-      sx={{ display: "flex", flexDirection: "row", width: "100%", pl: 1 }}
-    >
-      <FormControlLabel
-        value="bracelet"
-        control={<Radio {...controlProps("bracelet")} size="small" />}
-        label="Bracelet"
-      />
-      <FormControlLabel
-        value="necklace"
-        control={<Radio {...controlProps("necklace")} size="small" />}
-        label="Necklace"
-      />
-      <FormControlLabel
-        value="ring"
-        control={<Radio {...controlProps("ring")} size="small" />}
-        label="Ring"
-      />
-      <FormControlLabel
-        value="earring"
-        control={<Radio {...controlProps("earring")} size="small" />}
-        label="Earring"
-      />
-      <FormControlLabel
-        value="others"
-        control={<Radio {...controlProps("others")} size="small" />}
-        label="Others"
-      />
-    </RadioGroup>
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <Typography variant="subtitle1" fontWeight="bold">
+          Category
+        </Typography>
+        <IconButton onClick={() => setCategory("")}>
+          <ReplayOutlinedIcon sx={{ width: "16px", height: "16px" }} />
+        </IconButton>
+      </Box>
+      <RadioGroup
+        sx={{ display: "flex", flexDirection: "row", width: "100%", pl: 1 }}
+      >
+        <FormControlLabel
+          value="Bracelet"
+          control={<Radio {...controlProps("Bracelet,")} size="small" />}
+          label="Bracelet"
+        />
+        <FormControlLabel
+          value="Necklace"
+          control={<Radio {...controlProps("Necklace,")} size="small" />}
+          label="Necklace"
+        />
+        <FormControlLabel
+          value="Ring"
+          control={<Radio {...controlProps("Ring,")} size="small" />}
+          label="Ring"
+        />
+        <FormControlLabel
+          value="Earring"
+          control={<Radio {...controlProps("Earring,")} size="small" />}
+          label="Earring"
+        />
+        <FormControlLabel
+          value="Others"
+          control={<Radio {...controlProps("Others,")} size="small" />}
+          label="Others"
+        />
+      </RadioGroup>
+    </>
   );
 };
 

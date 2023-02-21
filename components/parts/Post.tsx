@@ -10,15 +10,17 @@ import { PostType, UserType } from "@/features/types";
 import { selectLoginUserID } from "@/features/userIDSlice";
 import { db } from "@/features/firebase";
 
+type Props = {
+  post: PostType;
+  users: UserType[] | undefined;
+  isMyPage?: boolean;
+};
+
 const Post = ({
   post,
   users,
   isMyPage = false,
-}: {
-  post: PostType;
-  users: UserType[] | undefined;
-  isMyPage?: boolean;
-}) => {
+}: Props) => {
   const router = useRouter();
   const loginUserID = useSelector(selectLoginUserID);
   const [like, setLike] = React.useState<boolean>(
@@ -64,7 +66,7 @@ const Post = ({
 
   return (
     <>
-      <Stack m={1} mb={2} key={post.id}>
+      <Stack m={1} mb={2}>
         <Box
           sx={{
             display: "flex",
@@ -115,10 +117,9 @@ const Post = ({
                 padding: 0,
               }}
             >
-              <IconButton>
+              <IconButton onClick={() => router.push(`/post/${post.id}`)}>
                 <ModeCommentIcon
                   fontSize="small"
-                  onClick={() => router.push(`/post/${post.id}`)}
                   color={post.comments.length > 0 ? "secondary" : "disabled"}
                 />
               </IconButton>
@@ -154,7 +155,6 @@ const Post = ({
             "&:hover": { opacity: 0.9, cursor: "pointer" },
           }}
           component="img"
-          key={post.id}
           src={`${post.imageURL}`}
           alt={post.comment}
           loading="lazy"

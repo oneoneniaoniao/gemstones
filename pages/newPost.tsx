@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Box, Grid, TextField, Typography, Button } from "@mui/material";
+import { Box, Grid, TextField, Button } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -9,9 +9,9 @@ import { useAppSelector } from "@/features/hooks/reduxHooks";
 import { selectLoginUserID } from "@/features/userIDSlice";
 import { storage, db } from "@/features/firebase";
 import MaterialSelect from "@/components/parts/MaterialSelect";
-import ColorRadio from "@/components/parts/ColorRadio";
-import BirthstoneSelect from "@/components/parts/BirthstoneSelect";
 import CategoryRadio from "@/components/parts/CategoryRadio";
+import ColorRadio from "@/components/parts/ColorRadio";
+import { MaterialType } from "@/features/types";
 
 const newPost = () => {
   const loginUserID = useAppSelector(selectLoginUserID);
@@ -19,20 +19,15 @@ const newPost = () => {
   const [comment, setComment] = React.useState("");
   const [image, setImage] = React.useState<File | null>(null);
   const [imageURL, setImageURL] = React.useState<string>("");
-  const [material, setMaterial] = React.useState<
-    { value: string; label: string }[]
-  >([]);
-  const [birthstone, setBirthstone] = React.useState<
-    { value: string; label: string }[]
-  >([]);
+  const [material, setMaterial] = React.useState<MaterialType[]>([]);
   const [color, setColor] = React.useState("");
   const [category, setCategory] = React.useState("");
 
   React.useEffect(() => {
     if (!loginUserID) {
       router.push("/");
-  }
-  })
+    }
+  });
 
   React.useEffect(() => {
     if (image) {
@@ -61,7 +56,7 @@ const newPost = () => {
         uid: loginUserID,
         comment: comment,
         comments: [],
-        material: [...material, ...birthstone],
+        material: material,
         color: color,
         imageURL: url,
         category: category,
@@ -148,34 +143,18 @@ const newPost = () => {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             />
-            <Box
-              sx={{ display: "flex", justifyContent: "start", width: "100%" }}
-            >
-              <Typography variant="subtitle1">Color Image</Typography>
+            <Box sx={{ width: "100%" }}>
+              <ColorRadio color={color} setColor={setColor} />
+              <CategoryRadio category={category} setCategory={setCategory} />
+              <MaterialSelect
+                setMaterial={setMaterial}
+                defaultValue={material}
+              />
             </Box>
-            <ColorRadio color={color} setColor={setColor} />
-            <Box
-              sx={{ display: "flex", justifyContent: "start", width: "100%" }}
-            >
-              <Typography variant="subtitle1">Category</Typography>
-            </Box>
-            <CategoryRadio category={category} setCategory={setCategory} />
-            <Box
-              sx={{ display: "flex", justifyContent: "start", width: "100%" }}
-            >
-              <Typography variant="subtitle1">Material</Typography>
-            </Box>
-            <MaterialSelect setMaterial={setMaterial} />
-            {/* <Box
-              sx={{ display: "flex", justifyContent: "start", width: "100%" }}
-            >
-              <Typography variant="subtitle1">Birthstone</Typography>
-            </Box>
-            <BirthstoneSelect setBirthstone={setBirthstone} /> */}
             <Button
               type="submit"
               variant="contained"
-              sx={{ mt: 3,  px: 8 }}
+              sx={{ mt: 3, px: 8 }}
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
                 handleSubmit(e)
               }
