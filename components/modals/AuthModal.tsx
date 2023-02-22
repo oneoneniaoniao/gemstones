@@ -107,23 +107,24 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
   };
 
   const signInEmail = () => {
-    signInWithEmailAndPassword(auth, email, password).then((res) => {
-      // Get the user information from the firebase database and store it in redux
-      getDoc(doc(db, "users", res.user.uid))
-        .then((res) => {
-          dispatch(storeLoginUserID(res.id));
-        })
-        .then(() => {
-          setEmail("");
-          setPassword("");
-          setAvatarImage(null);
-          setOpenAuthModal(false);
-          router.push(nextPath || "/");
-        })
-        .catch((err) => {
-          alert(err.message);
-        });
-    });
+    signInWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+        // Get the user information from the firebase database and store it in redux
+        getDoc(doc(db, "users", res.user.uid))
+          .then((res) => {
+            dispatch(storeLoginUserID(res.id));
+          })
+          .then(() => {
+            setEmail("");
+            setPassword("");
+            setAvatarImage(null);
+            setOpenAuthModal(false);
+            router.push(nextPath || "/");
+          });
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
   const signUpEmail = async () => {
     const authUser = await createUserWithEmailAndPassword(
@@ -132,10 +133,12 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
       password
     );
     let url = ""; // Url of avatar image
+    let avatarRef = ""; // Reference of avatar image
     if (avatarImage) {
       const randomChar = uuidv4();
       const fileName = randomChar + "_" + avatarImage.name;
-      const storageRef = ref(storage, `avatars/${fileName}`);
+      avatarRef = `avatars/${authUser.user.uid}/${fileName}`;
+      const storageRef = ref(storage, avatarRef);
       await uploadBytes(storageRef, avatarImage);
       url = await getDownloadURL(storageRef);
     }
@@ -148,6 +151,7 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
         displayName: displayName,
         photoURL: url,
         profile: "",
+        avatarRef: avatarRef,
       }),
       dispatch(storeLoginUserID(authUser.user.uid)),
     ])

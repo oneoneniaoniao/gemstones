@@ -12,6 +12,7 @@ export type PostType = {
   likedBy: string[];
   createdAt: Timestamp,
   editedAt: Timestamp | "";
+  imageRef: string;
 };
 
 export type MaterialType = { value: string; label: string };
