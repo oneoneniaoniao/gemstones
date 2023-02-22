@@ -13,7 +13,6 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { pink, grey } from "@mui/material/colors";
 import { useAppDispatch, useAppSelector } from "@/features/hooks/reduxHooks";
 import {
   selectLoginUserID,

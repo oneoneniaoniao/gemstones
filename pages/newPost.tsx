@@ -63,6 +63,7 @@ const newPost = () => {
         likedBy: [],
         createdAt: serverTimestamp(),
         editedAt: "",
+        imageRef: `images/${fileName}`,
       });
       alert("Your post has been successfully posted!");
       router.push("/myPage");

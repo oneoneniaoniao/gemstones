@@ -1,7 +1,12 @@
 import React from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 import { getAuth, updateProfile } from "firebase/auth";
 import {
   Avatar,
@@ -38,18 +43,21 @@ const EditProfileModal = ({
   const [profile, setProfile] = React.useState("");
   const [displayName, setDisplayName] = React.useState("");
   const [photoURL, setPhotoURL] = React.useState("");
+  const [avatarRef, setAvatarRef] = React.useState("");
   const [avatarImage, setAvatarImage] = React.useState<File | null>(null);
 
   React.useEffect(() => {
     if (!auth.currentUser) return;
+    if (openModal) return;
     getDoc(doc(db, "users", auth.currentUser!.uid)).then((doc) => {
       if (doc.exists()) {
         setProfile(doc.data().profile);
         setDisplayName(doc.data().displayName);
         setPhotoURL(doc.data().photoURL);
+        setAvatarRef(doc.data().avatarRef);
       }
     });
-  }, [auth.currentUser]);
+  }, [auth.currentUser, openModal]);
 
   // To show the avatar image preview
   React.useEffect(() => {
@@ -69,10 +77,16 @@ const EditProfileModal = ({
   const handleSubmit = async () => {
     try {
       let url = photoURL; // To store the image URL
+      let newAvatarRef = "";
       if (avatarImage) {
+        if (avatarRef) {
+          const oldAvatarRef = ref(storage, avatarRef);
+          deleteObject(oldAvatarRef);
+        }
         const randomChar = uuidv4();
         const fileName = randomChar + "_" + avatarImage.name;
-        const storageRef = ref(storage, `avatars/${fileName}`);
+        newAvatarRef = `avatars/${LoginUserID}/${fileName}`;
+        const storageRef = ref(storage, newAvatarRef);
         await uploadBytes(storageRef, avatarImage);
         url = await getDownloadURL(storageRef);
       }
@@ -85,6 +99,7 @@ const EditProfileModal = ({
         displayName,
         photoURL: url,
         profile,
+        avatarRef: newAvatarRef,
       });
     } catch (error: any) {
       alert(error.message);

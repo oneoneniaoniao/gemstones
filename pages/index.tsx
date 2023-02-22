@@ -47,6 +47,7 @@ const index = () => {
             likedBy: doc.data().likedBy,
             createdAt: doc.data().createdAt,
             editedAt: doc.data().editedAt,
+            imageRef: doc.data().imageRef,
           }))
         );
         setPosts(
@@ -62,6 +63,7 @@ const index = () => {
             likedBy: doc.data().likedBy,
             createdAt: doc.data().createdAt,
             editedAt: doc.data().editedAt,
+            imageRef: doc.data().imageRef,
           }))
         );
       }),

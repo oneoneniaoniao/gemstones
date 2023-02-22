@@ -55,6 +55,7 @@ const myPage = () => {
             likedBy: doc.data().likedBy,
             createdAt: doc.data().createdAt,
             editedAt: doc.data().editedAt,
+            imageRef: doc.data().imageRef,
           }))
         );
       }),
