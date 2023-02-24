@@ -45,11 +45,11 @@ export const sortedOptions = [
 ];
 
 type Props = {
-  setMaterial: React.Dispatch<React.SetStateAction<MaterialType[]>>;
+  setMaterials: React.Dispatch<React.SetStateAction<MaterialType[]>>;
   defaultValue?: MaterialType[];
 };
 
-const MaterialSelect = ({ setMaterial, defaultValue }: Props) => {
+const MaterialSelect = ({ setMaterials, defaultValue }: Props) => {
   return (
     <>
       <Box sx={{ display: "flex", justifyContent: "start", width: "100%" }}>
@@ -59,7 +59,7 @@ const MaterialSelect = ({ setMaterial, defaultValue }: Props) => {
       </Box>
       <Box sx={{ width: "100%", mb: 1 }}>
         <ReactSelect
-          onChange={(e) => setMaterial([...e])}
+          onChange={(e) => setMaterials([...e])}
           options={sortedOptions}
           isMulti={true}
           defaultValue={defaultValue}

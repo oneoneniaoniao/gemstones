@@ -49,27 +49,27 @@ const CategoryRadio = ({ category, setCategory }: Props) => {
       >
         <FormControlLabel
           value="Bracelet"
-          control={<Radio {...controlProps("Bracelet,")} size="small" />}
+          control={<Radio {...controlProps("Bracelet")} size="small" />}
           label="Bracelet"
         />
         <FormControlLabel
           value="Necklace"
-          control={<Radio {...controlProps("Necklace,")} size="small" />}
+          control={<Radio {...controlProps("Necklace")} size="small" />}
           label="Necklace"
         />
         <FormControlLabel
           value="Ring"
-          control={<Radio {...controlProps("Ring,")} size="small" />}
+          control={<Radio {...controlProps("Ring")} size="small" />}
           label="Ring"
         />
         <FormControlLabel
           value="Earring"
-          control={<Radio {...controlProps("Earring,")} size="small" />}
+          control={<Radio {...controlProps("Earring")} size="small" />}
           label="Earring"
         />
         <FormControlLabel
           value="Others"
-          control={<Radio {...controlProps("Others,")} size="small" />}
+          control={<Radio {...controlProps("Others")} size="small" />}
           label="Others"
         />
       </RadioGroup>

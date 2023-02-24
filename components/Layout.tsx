@@ -184,19 +184,20 @@ const Layout = ({ children }: { children?: ReactNode }) => {
         <BottomNavigation
           sx={{
             // borderTop: `1px solid ${pink[100]}`,
+            height:"2.8rem",
             position: "fixed",
             bottom: 0,
             left: 0,
             right: 0,
             zIndex: 100,
             background: "rgba(255,230,240,1)",
-            transform: "translateY(40%)",
-            transition: "all 0.2s ease-in-out",
-            opacity: 0,
-            "&:hover": {
-              transform: "translateY(0)",
-              opacity: 1,
-            },
+            // transform: "translateY(40%)",
+            // transition: "all 0.2s ease-in-out",
+            // opacity: 0,
+            // "&:hover": {
+            //   transform: "translateY(0)",
+            //   opacity: 1,
+            // },
           }}
           showLabels
           value={value}
@@ -206,17 +207,17 @@ const Layout = ({ children }: { children?: ReactNode }) => {
         >
           <BottomNavigationAction
             label="Feed"
-            icon={<FavoriteIcon sx={{ "&:hover": { opacity: 0.8 } }} />}
+            icon={<FavoriteIcon fontSize="small" sx={{ "&:hover": { opacity: 0.8 } }} />}
             onClick={() => handleClickBottomNav("/")}
           />
           <BottomNavigationAction
             label="My Page"
-            icon={<HomeRoundedIcon sx={{ "&:hover": { opacity: 0.8 } }} />}
+            icon={<HomeRoundedIcon fontSize="small" sx={{ "&:hover": { opacity: 0.8 } }} />}
             onClick={() => handleClickBottomNav("/myPage")}
           />
           <BottomNavigationAction
             label="New Post"
-            icon={<AddBoxIcon sx={{ "&:hover": { opacity: 0.8 } }} />}
+            icon={<AddBoxIcon fontSize="small" sx={{ "&:hover": { opacity: 0.8 } }} />}
             onClick={() => handleClickBottomNav("/newPost")}
           />
         </BottomNavigation>
