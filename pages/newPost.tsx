@@ -19,7 +19,7 @@ const newPost = () => {
   const [comment, setComment] = React.useState("");
   const [image, setImage] = React.useState<File | null>(null);
   const [imageURL, setImageURL] = React.useState<string>("");
-  const [material, setMaterial] = React.useState<MaterialType[]>([]);
+  const [materials, setMaterials] = React.useState<MaterialType[]>([]);
   const [color, setColor] = React.useState("");
   const [category, setCategory] = React.useState("");
 
@@ -54,9 +54,12 @@ const newPost = () => {
       const url = await getDownloadURL(storageRef);
       await addDoc(collection(db, "posts"), {
         uid: loginUserID,
-        comment: comment,
+        authorComment: {
+          comment: comment,
+          commentedAt: comment ? serverTimestamp() : "",
+        },
         comments: [],
-        material: material,
+        materials: materials,
         color: color,
         imageURL: url,
         category: category,
@@ -79,6 +82,7 @@ const newPost = () => {
           <Box
             sx={{
               my: { xs: 0, sm: 1 },
+              pb: 10,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -148,8 +152,8 @@ const newPost = () => {
               <ColorRadio color={color} setColor={setColor} />
               <CategoryRadio category={category} setCategory={setCategory} />
               <MaterialSelect
-                setMaterial={setMaterial}
-                defaultValue={material}
+                setMaterials={setMaterials}
+                defaultValue={materials}
               />
             </Box>
             <Button

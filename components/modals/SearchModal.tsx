@@ -50,8 +50,8 @@ const SearchModal = ({
             setCategory={PFs.setCategory}
           />
           <MaterialSelect
-            setMaterial={PFs.setMaterial}
-            defaultValue={PFs.material}
+            setMaterials={PFs.setMaterials}
+            defaultValue={PFs.materials}
           />
         </Box>
         <Typography fontWeight="bold" variant="subtitle1">

@@ -47,9 +47,9 @@ const myPage = () => {
             id: doc.id,
             uid: doc.data().uid,
             imageURL: doc.data().imageURL,
-            comment: doc.data().comment,
+            authorComment: doc.data().authorComment,
             comments: doc.data().comments,
-            materials: doc.data().material,
+            materials: doc.data().materials,
             color: doc.data().color,
             category: doc.data().category,
             likedBy: doc.data().likedBy,
@@ -116,7 +116,7 @@ const myPage = () => {
           }}
         >
           {posts.map((post) => (
-            <Post post={post} users={users} key={post.id} isMyPage={true} />
+            <Post post={post} users={users} key={post.id} />
           ))}
         </Box>
       </Box>
