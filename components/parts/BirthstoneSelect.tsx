@@ -10,11 +10,11 @@ type Props = {
 const BirthstoneSelect = ({ setBirthstone }: Props) => {
   return (
     <Box sx={{ width: "100%", mb: 1 }}>
-      <ReactSelect
+      {/* <ReactSelect
         onChange={(e) => setBirthstone([...e])}
         options={birthstoneOptions}
         isMulti={true}
-      />
+      /> */}
     </Box>
   );
 };
