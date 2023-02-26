@@ -54,10 +54,7 @@ const newPost = () => {
       const url = await getDownloadURL(storageRef);
       await addDoc(collection(db, "posts"), {
         uid: loginUserID,
-        authorComment: {
-          comment: comment,
-          commentedAt: comment ? serverTimestamp() : "",
-        },
+        authorComment: comment,
         comments: [],
         materials: materials,
         color: color,

@@ -57,7 +57,6 @@ const PostHeader = ({ post, author }: Props) => {
     }
   };
 
-  console.log("PostHeader: ", loginUserID, post.uid);
   return (
     <>
       <Box
@@ -115,7 +114,10 @@ const PostHeader = ({ post, author }: Props) => {
           {loginUserID === post.uid && (
             <IconButton
               onClick={() => {
-                router.push(`/post/edit/${post.id}`);
+                router.push({
+                  pathname: "/post/edit",
+                  query: { postId: post.id, authorId: post.uid },
+                });
               }}
             >
               <EditIcon fontSize="small" />

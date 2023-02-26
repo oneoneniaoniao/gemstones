@@ -20,6 +20,7 @@ const Post = ({ post, users }: Props) => {
   const loginUserID = useAppSelector(selectLoginUserID);
   // Get the author info of the post
   const author = users.filter((user) => user.uid === post.uid)[0];
+  if(!author) return (<></>)
 
   return (
     <>
@@ -35,7 +36,7 @@ const Post = ({ post, users }: Props) => {
           }}
           component="img"
           src={`${post.imageURL}`}
-          alt={post.authorComment.comment}
+          alt={post.authorComment}
           loading="lazy"
           width="100%"
         />
@@ -56,7 +57,7 @@ const Post = ({ post, users }: Props) => {
               sx={{ color: "#555", fontSize: "10px" }}
             >
               {timestampToDate(post.createdAt)}
-              {/* {post.editedAt && `Edited: ${timestampToDate(post.editedAt)}`} */}
+              {post.editedAt && ` Edited: ${timestampToDate(post.editedAt)}`}
             </Typography>
           </Box>
           <Box
@@ -116,7 +117,7 @@ const Post = ({ post, users }: Props) => {
             })}
           </Box>
         </Stack>
-        {post.authorComment.comment ? (
+        {post.authorComment ? (
           <>
             <Box
               sx={{
@@ -126,17 +127,11 @@ const Post = ({ post, users }: Props) => {
                 alignItems: "flex-start",
               }}
             >
-              <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Box sx={{ display: "flex", flexDirection: "row", alignItems:"center" }}>
                 <AvatarNameIcon author={author} size="small" />
-                <Typography
-                  variant="caption"
-                  sx={{ ml: 1, color: "#555", fontSize: "10px" }}
-                >{`${timestampToDate(
-                  post.authorComment.commentedAt
-                )}`}</Typography>
               </Box>
               <Typography variant="body2" sx={{ mr: 1 }}>
-                {post.authorComment.comment}
+                {post.authorComment}
               </Typography>
               {/* {post.comments.length > 0 ? (
                 <Box
