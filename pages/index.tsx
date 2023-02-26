@@ -248,6 +248,7 @@ const Index = () => {
               )}
               {materials.map((m) => (
                 <Box
+                  key={m.value}
                   sx={{
                     fontSize: "12px",
                     m: "1px",

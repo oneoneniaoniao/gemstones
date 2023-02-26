@@ -200,6 +200,7 @@ const PostPage = () => {
               return (
                 <>
                   <Box
+                    key={material.label}
                     sx={{
                       fontSize: "12px",
                       m: "1px",
