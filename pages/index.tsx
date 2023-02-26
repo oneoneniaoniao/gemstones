@@ -29,6 +29,7 @@ const Index = () => {
     materials,
     setMaterials,
   };
+  const [likeClicked, setLikeClicked] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     Promise.all([
@@ -263,7 +264,21 @@ const Index = () => {
                 </Box>
               ))}
             </Box>
-            <IconButton onClick={() => setOpenSearchModal(true)}>
+            <IconButton
+              onClick={() => {
+                if (likeClicked) {
+                  if (
+                    confirm(
+                      "Please first refresh this page after you click like icons."
+                    )
+                  ) {
+                    window.location.reload();
+                  }
+                } else {
+                  setOpenSearchModal(true);
+                }
+              }}
+            >
               <SearchIcon />
             </IconButton>
             {numberOfFilters || sort !== "New" ? (
@@ -292,7 +307,14 @@ const Index = () => {
           <Typography variant="body2">No posts found.</Typography>
         ) : (
           users &&
-          posts.map((post) => <Post post={post} users={users} key={post.id} />)
+          posts.map((post) => (
+            <Post
+              post={post}
+              users={users}
+              key={post.id}
+              setLikeClicked={setLikeClicked}
+            />
+          ))
         )}
       </Box>
       <SearchModal
