@@ -16,7 +16,7 @@ import ColorRadio from "@/components/parts/ColorRadio";
 import CategoryRadio from "@/components/parts/CategoryRadio";
 import MaterialSelect from "@/components/parts/MaterialSelect";
 
-const edit = () => {
+const Edit = () => {
   const router = useRouter();
   const [author, setAuthor] = React.useState({
     uid: "",
@@ -241,7 +241,7 @@ const edit = () => {
   );
 };
 
-export default edit;
+export default Edit;
 
 const styles = {
   imageButton: {

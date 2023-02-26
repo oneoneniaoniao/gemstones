@@ -18,7 +18,7 @@ import { db } from "@/features/firebase";
 import { PostType, UserType } from "@/features/types";
 import Post from "@/components/parts/Post";
 
-const myPage = () => {
+const MyPage = () => {
   const router = useRouter();
   const loginUserID = useAppSelector(selectLoginUserID);
   const [posts, setPosts] = React.useState<PostType[]>([]);
@@ -129,4 +129,4 @@ const myPage = () => {
   );
 };
 
-export default myPage;
+export default MyPage;

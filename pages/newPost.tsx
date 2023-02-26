@@ -13,7 +13,7 @@ import CategoryRadio from "@/components/parts/CategoryRadio";
 import ColorRadio from "@/components/parts/ColorRadio";
 import { MaterialType } from "@/features/types";
 
-const newPost = () => {
+const NewPost = () => {
   const loginUserID = useAppSelector(selectLoginUserID);
   const router = useRouter();
   const [comment, setComment] = React.useState("");
@@ -171,7 +171,7 @@ const newPost = () => {
   );
 };
 
-export default newPost;
+export default NewPost;
 
 const styles = {
   imageButton: {

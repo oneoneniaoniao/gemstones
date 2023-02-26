@@ -20,7 +20,7 @@ const Post = ({ post, users }: Props) => {
   const loginUserID = useAppSelector(selectLoginUserID);
   // Get the author info of the post
   const author = users.filter((user) => user.uid === post.uid)[0];
-  if(!author) return (<></>)
+  if (!author) return <></>;
 
   return (
     <>
@@ -101,6 +101,7 @@ const Post = ({ post, users }: Props) => {
               return (
                 <>
                   <Box
+                    key={material.label}
                     sx={{
                       fontSize: "11px",
                       m: "1px",
@@ -127,7 +128,13 @@ const Post = ({ post, users }: Props) => {
                 alignItems: "flex-start",
               }}
             >
-              <Box sx={{ display: "flex", flexDirection: "row", alignItems:"center" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
                 <AvatarNameIcon author={author} size="small" />
               </Box>
               <Typography variant="body2" sx={{ mr: 1 }}>
