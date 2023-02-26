@@ -13,9 +13,10 @@ import { getColor } from "@/features/getColor";
 type Props = {
   post: PostType;
   users: UserType[];
+  setLikeClicked?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Post = ({ post, users }: Props) => {
+const Post = ({ post, users, setLikeClicked }: Props) => {
   const router = useRouter();
   const loginUserID = useAppSelector(selectLoginUserID);
   // Get the author info of the post
@@ -25,7 +26,15 @@ const Post = ({ post, users }: Props) => {
   return (
     <>
       <Stack m={1} mb={2} sx={{ maxWidth: "360px" }}>
-        <PostHeader post={post} author={author} />
+        {setLikeClicked ? (
+          <PostHeader
+            post={post}
+            author={author}
+            setLikeClicked={setLikeClicked}
+          />
+        ) : (
+          <PostHeader post={post} author={author} />
+        )}
         <Box
           sx={{
             objectFit: "cover",

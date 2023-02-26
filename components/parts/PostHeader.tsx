@@ -16,9 +16,10 @@ import { db } from "@/features/firebase";
 type Props = {
   post: PostType;
   author: UserType;
+  setLikeClicked?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const PostHeader = ({ post, author }: Props) => {
+const PostHeader = ({ post, author, setLikeClicked }: Props) => {
   const router = useRouter();
   const loginUserID = useAppSelector(selectLoginUserID);
   const [like, setLike] = React.useState<boolean>(
@@ -33,6 +34,7 @@ const PostHeader = ({ post, author }: Props) => {
       return;
     }
     if (like) {
+      setLikeClicked && setLikeClicked(true);
       setLike(!like);
       setNumberOfLikes(numberOfLikes - 1);
       setDoc(
@@ -43,6 +45,7 @@ const PostHeader = ({ post, author }: Props) => {
         { merge: true }
       );
     } else {
+      setLikeClicked && setLikeClicked(true);
       setLike(!like);
       setNumberOfLikes(numberOfLikes + 1);
       if (!post.likedBy.includes(loginUserID)) {
