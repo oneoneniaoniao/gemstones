@@ -19,7 +19,7 @@ import { getColor } from "@/features/getColor";
 import AvatarNameIcon from "@/components/parts/AvatarNameIcon";
 import TimestampToDate from "@/features/timestampToDate";
 
-const postPage = () => {
+const PostPage = () => {
   const router = useRouter();
   const postId = router.query.id as string;
   const loginUserID = useAppSelector(selectLoginUserID);
@@ -142,7 +142,7 @@ const postPage = () => {
           }}
           component="img"
           src={`${post.imageURL}`}
-          alt={post.authorComment.comment}
+          alt={post.authorComment}
           loading="lazy"
           width="100%"
         />
@@ -227,7 +227,7 @@ const postPage = () => {
           >
             <AvatarNameIcon author={author} size="small" />
             <Typography variant="body2" sx={{ ml: 1 }}>
-              {post.authorComment.comment}
+              {post.authorComment}
             </Typography>
           </Box>
         ) : null}
@@ -236,4 +236,4 @@ const postPage = () => {
   );
 };
 
-export default postPage;
+export default PostPage;

@@ -11,7 +11,7 @@ import Post from "@/components/parts/Post";
 import SearchModal from "@/components/modals/SearchModal";
 import { getColor } from "@/features/getColor";
 
-const index = () => {
+const Index = () => {
   const [users, setUsers] = React.useState<UserType[]>([]);
   const [posts, setPosts] = React.useState<PostType[]>([]);
   const [allPosts, setAllPosts] = React.useState<PostType[]>([]);
@@ -305,4 +305,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
