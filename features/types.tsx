@@ -4,13 +4,13 @@ export type PostType = {
   id: string;
   uid: string;
   imageURL: string;
-  authorComment: AuthorCommentType;
+  authorComment: string;
   comments: CommentType[] | [];
   materials: MaterialType[] | [];
   color: string;
   category: string;
   likedBy: string[];
-  createdAt: Timestamp;
+  createdAt: Timestamp | "";
   editedAt: Timestamp | "";
   imageRef: string;
 };
@@ -18,11 +18,6 @@ export type PostType = {
 export type MaterialType = { value: string; label: string };
 
 export type CommentType = { uid: string; comment: string; commentedAt: string };
-
-export type AuthorCommentType = {
-  comment: string;
-  commentedAt: Timestamp|"";
-};
 
 export type UserType = {
   uid: string;

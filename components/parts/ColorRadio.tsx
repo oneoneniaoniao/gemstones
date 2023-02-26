@@ -14,6 +14,7 @@ import {
   FormControlLabel,
   IconButton,
   RadioGroup,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import ReplayOutlinedIcon from "@mui/icons-material/ReplayOutlined";
@@ -54,21 +55,39 @@ const ColorRadio = ({ color: selectedColor, setColor }: Props) => {
         </IconButton>
       </Box>
       <RadioGroup sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
-        <Radio {...controlProps("Pink/Red")} sx={color.pink} size="small" />
-        <Radio
-          {...controlProps("Yellow/Orange/Gold")}
-          sx={color.orange}
-          size="small"
-        />
-        <Radio {...controlProps("Green")} sx={color.green} size="small" />
-        <Radio {...controlProps("Blue")} sx={color.blue} size="small" />
-        <Radio {...controlProps("Purple")} sx={color.purple} size="small" />
-        <Radio
-          {...controlProps("White/Silver")}
-          sx={color.white}
-          size="small"
-        />
-        <Radio {...controlProps("Black/Gray")} sx={color.black} size="small" />
+        <Tooltip title="Pink/Red" placement="top">
+          <Radio {...controlProps("Pink/Red")} sx={color.pink} size="small" />
+        </Tooltip>
+        <Tooltip title="Yellow/Orange/Gold" placement="top">
+          <Radio
+            {...controlProps("Yellow/Orange/Gold")}
+            sx={color.orange}
+            size="small"
+          />
+        </Tooltip>
+        <Tooltip title="Green" placement="top">
+          <Radio {...controlProps("Green")} sx={color.green} size="small" />
+        </Tooltip>
+        <Tooltip title="Blue" placement="top">
+          <Radio {...controlProps("Blue")} sx={color.blue} size="small" />
+        </Tooltip>
+        <Tooltip title="Purple" placement="top">
+          <Radio {...controlProps("Purple")} sx={color.purple} size="small" />
+        </Tooltip>
+        <Tooltip title="White/Silver" placement="top">
+          <Radio
+            {...controlProps("White/Silver")}
+            sx={color.white}
+            size="small"
+          />
+        </Tooltip>
+        <Tooltip title="Black/Gray" placement="top">
+          <Radio
+            {...controlProps("Black/Gray")}
+            sx={color.black}
+            size="small"
+          />
+        </Tooltip>
         <FormControlLabel
           value="Mixed"
           control={<Radio {...controlProps("Mixed")} size="small" />}
