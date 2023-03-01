@@ -71,7 +71,7 @@ const PostHeader = ({ post, author, setLikeClicked }: Props) => {
           width: "100%",
         }}
       >
-        <AvatarNameIcon author={author} size="medium" />
+        <AvatarNameIcon user={author} size="medium" />
         <Box
           sx={{
             display: "flex",
@@ -89,7 +89,14 @@ const PostHeader = ({ post, author, setLikeClicked }: Props) => {
               padding: 0,
             }}
           >
-            <IconButton onClick={() => {}}>
+            <IconButton
+              onClick={() => {
+                router.push({
+                  pathname: "/post/detail",
+                  query: { postId: post.id, authorId: post.uid },
+                });
+              }}
+            >
               <ModeCommentIcon
                 fontSize="small"
                 color={post.comments.length > 0 ? "secondary" : "disabled"}
