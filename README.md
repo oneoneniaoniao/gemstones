@@ -2,7 +2,7 @@
 <img width="503" alt="スクリーンショット 2023-02-27 6 06 44" src="https://user-images.githubusercontent.com/76186907/221437349-fe97664e-22c2-4c31-98ed-35561000be33.png">
 
 ## アプリ URL
-https://gemstones-git-fix-41sort-oneoneniaoniao.vercel.app/
+https://gemstones.vercel.app/
 
 ## アプリ概要
 天然石のハンドメイド作品を紹介するSNSです。
@@ -40,7 +40,7 @@ https://gemstones-git-fix-41sort-oneoneniaoniao.vercel.app/
 * フィルターおよび検索
 
 ## 実装予定の機能
-* コメント機能
+* コメント機能 → 済み
 * ユーザー詳細情報ページ
 * i18n
 * email登録前のmailアドレスの実在確認
