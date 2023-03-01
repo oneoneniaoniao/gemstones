@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import { PostType, UserType } from "@/features/types";
 import { selectLoginUserID } from "@/features/userIDSlice";
@@ -21,7 +21,12 @@ const Post = ({ post, users, setLikeClicked }: Props) => {
   const loginUserID = useAppSelector(selectLoginUserID);
   // Get the author info of the post
   const author = users.filter((user) => user.uid === post.uid)[0];
-  if (!author) return <></>;
+  if (!author)
+    return (
+      <>
+        <CircularProgress />
+      </>
+    );
 
   return (
     <>
@@ -42,6 +47,16 @@ const Post = ({ post, users, setLikeClicked }: Props) => {
             maxHeight: "360px",
             width: "90vw",
             height: "90vw",
+            "&:hover": {
+              cursor: "pointer",
+              opacity: "0.8",
+            },
+          }}
+          onClick={() => {
+            router.push({
+              pathname: "/post/detail",
+              query: { postId: post.id, authorId: post.uid },
+            });
           }}
           component="img"
           src={`${post.imageURL}`}
@@ -144,7 +159,7 @@ const Post = ({ post, users, setLikeClicked }: Props) => {
                   alignItems: "center",
                 }}
               >
-                <AvatarNameIcon author={author} size="small" />
+                <AvatarNameIcon user={author} size="small" />
               </Box>
               <Typography variant="body2" sx={{ mr: 1 }}>
                 {post.authorComment}

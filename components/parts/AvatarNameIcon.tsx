@@ -6,11 +6,11 @@ import Avatar from "@mui/material/Avatar";
 import { UserType } from "@/features/types";
 
 type Props = {
-  author: UserType;
+  user: UserType;
   size: "small" | "medium" | "large";
 };
 
-const AvatarNameIcon = ({ author, size }: Props) => {
+const AvatarNameIcon = ({ user, size }: Props) => {
   const avatarSize = size === "small" ? 20 : size === "medium" ? 32 : 48;
   const fontSize =
     size === "small" ? "body2" : size === "medium" ? "body2" : "h6";
@@ -25,17 +25,17 @@ const AvatarNameIcon = ({ author, size }: Props) => {
         marginBottom: 0.2,
         "&:hover": { opacity: 0.8, cursor: "pointer" },
       }}
-      onClick={() => router.push(`/user/${author.uid}`)}
+      onClick={() => router.push(`/user/${user.uid}`)}
     >
       <Avatar
-        src={author.photoURL}
+        src={user.photoURL}
         sx={{
           width: avatarSize,
           height: avatarSize,
           marginRight: 0.5,
         }}
       />
-      <Typography variant={fontSize}>{author.displayName}</Typography>
+      <Typography variant={fontSize}>{user.displayName}</Typography>
     </Box>
   );
 };

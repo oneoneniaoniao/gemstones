@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
         main: pink[400],
       },
       secondary: {
-        main: lightBlue[400],
+        main: lightBlue[300],
       },
 
       text: {

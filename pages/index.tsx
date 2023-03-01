@@ -93,7 +93,7 @@ const Index = () => {
       const allPostsCopy = [...allPosts];
       // Sort posts
       if (sort === "Comments") {
-        allPostsCopy.sort((a, b) => a.comments.length - b.comments.length);
+        allPostsCopy.sort((a, b) => b.comments.length - a.comments.length);
       } else if (sort === "Likes") {
         allPostsCopy.sort((a, b) => b.likedBy.length - a.likedBy.length);
       }

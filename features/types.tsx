@@ -5,7 +5,7 @@ export type PostType = {
   uid: string;
   imageURL: string;
   authorComment: string;
-  comments: CommentType[] | [];
+  comments: string[];
   materials: MaterialType[] | [];
   color: string;
   category: string;
@@ -17,7 +17,12 @@ export type PostType = {
 
 export type MaterialType = { value: string; label: string };
 
-export type CommentType = { uid: string; comment: string; commentedAt: string };
+export type CommentType = {
+  id: string;
+  uid: string;
+  comment: string;
+  commentedAt: Timestamp | "";
+};
 
 export type UserType = {
   uid: string;
