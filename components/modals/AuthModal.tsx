@@ -60,6 +60,11 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
 
   const onChangeImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files![0]) {
+      if (e.target.files![0].size > 1000000) {
+        alert("Image size is too large. Please select an image less than 1MB.");
+        e.target.value = "";
+        return;
+      }
       setAvatarImage(e.target.files![0]);
       e.target.value = "";
     }
@@ -108,19 +113,12 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
 
   const signInEmail = () => {
     signInWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        // Get the user information from the firebase database and store it in redux
-        getDoc(doc(db, "users", res.user.uid))
-          .then((res) => {
-            dispatch(storeLoginUserID(res.id));
-          })
-          .then(() => {
-            setEmail("");
-            setPassword("");
-            setAvatarImage(null);
-            setOpenAuthModal(false);
-            router.push(nextPath || "/");
-          });
+      .then(() => {
+        setEmail("");
+        setPassword("");
+        setAvatarImage(null);
+        setOpenAuthModal(false);
+        router.push(nextPath || "/");
       })
       .catch((err) => {
         alert(err.message);
@@ -153,7 +151,6 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
         profile: "",
         avatarRef: avatarRef,
       }),
-      dispatch(storeLoginUserID(authUser.user.uid)),
     ])
       .then(() => {
         setIsLogin(true);
@@ -171,7 +168,14 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
 
   return (
     <>
-      <Modal open={openAuthModal} onClose={() => setOpenAuthModal(false)}>
+      <Modal
+        open={openAuthModal}
+        onClose={() => {
+          setIsLogin(true);
+          setOpenAuthModal(false);
+          router.push(`${location.pathname}${location.search}`);
+        }}
+      >
         <Paper
           sx={{
             position: "absolute",
@@ -215,7 +219,11 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
                     autoFocus
                     value={displayName}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      setDisplayName(e.target.value);
+                      if(e.target.value.length <= 16){
+                        setDisplayName(e.target.value);
+                      }else{
+                        alert("Display name is too long. Please enter 16 characters or less.");
+                      }
                     }}
                   />
                   <Box textAlign="center">
@@ -266,6 +274,7 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
                 onChange={(
                   e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
                 ) => setEmail(e.target.value)}
+                inputProps={{ maxLength: 320 }}
               />
               <TextField
                 margin="normal"
@@ -304,14 +313,14 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
                         try {
                           await signInEmail();
                         } catch (e: any) {
-                          alert(e);
+                          alert(e.message);
                         }
                       }
                     : async () => {
                         try {
                           await signUpEmail();
                         } catch (e: any) {
-                          alert(e);
+                          alert(e.message);
                         }
                       }
                 }
@@ -352,8 +361,10 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
                 variant="outlined"
                 sx={{ mt: 3, mb: 2 }}
                 onClick={() => {
+                  setIsLogin(true);
                   setOpenAuthModal(false);
-                  router.push(`${location.pathname}`);
+                  // Without this, the bottom navigation's selected tab can be incorrect.
+                  router.push(`${location.pathname}${location.search}`);
                 }}
               >
                 Cancel

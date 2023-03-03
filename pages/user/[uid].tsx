@@ -46,7 +46,6 @@ const UserPage = () => {
             photoURL: doc.data().photoURL,
             profile: doc.data().profile,
           });
-          console.log("allUsers", allUsers);
           setUsers(allUsers);
         });
       }),

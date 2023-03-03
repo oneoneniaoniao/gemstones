@@ -43,7 +43,9 @@ const PostHeader = ({ post, author, setLikeClicked }: Props) => {
           likedBy: post.likedBy.filter((uid) => uid !== loginUserID),
         },
         { merge: true }
-      );
+      ).catch((error) => {
+        alert(error.message);
+      });
     } else {
       setLikeClicked && setLikeClicked(true);
       setLike(!like);
@@ -55,7 +57,9 @@ const PostHeader = ({ post, author, setLikeClicked }: Props) => {
             likedBy: [...post.likedBy, loginUserID],
           },
           { merge: true }
-        );
+        ).catch((error) => {
+          alert(error.message);
+        });
       }
     }
   };
@@ -116,7 +120,7 @@ const PostHeader = ({ post, author, setLikeClicked }: Props) => {
             <IconButton onClick={onClickLike}>
               <FavoriteIcon
                 fontSize="small"
-                color={like ? "primary" : "disabled"}
+                color={like && loginUserID ? "primary" : "disabled"}
               />
             </IconButton>
             <Typography variant="body1">{numberOfLikes}</Typography>

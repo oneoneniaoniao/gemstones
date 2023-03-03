@@ -9,12 +9,13 @@ import {
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "@/features/firebase";
+import { db, storage } from "@/features/firebase";
 import { Button, Grid, TextField, Tooltip } from "@mui/material";
 import { Box } from "@mui/system";
 import ColorRadio from "@/components/parts/ColorRadio";
 import CategoryRadio from "@/components/parts/CategoryRadio";
 import MaterialSelect from "@/components/parts/MaterialSelect";
+import { deleteObject, ref } from "firebase/storage";
 
 const Edit = () => {
   const router = useRouter();
@@ -121,17 +122,21 @@ const Edit = () => {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     if (confirm("Are you sure you want to delete this post?")) {
-      try {
-        await deleteDoc(doc(db, "posts", post.id));
-        alert("Your post has been deleted!");
-        router.push("/myPage");
-      } catch {
-        (error: any) => {
-          alert(error.message);
-        };
-      }
+      Promise.all([
+        deleteDoc(doc(db, "posts", post.id)),
+        deleteObject(ref(storage, post.imageRef)),
+      ])
+        .then(() => {
+          alert("Your post has been deleted!");
+          router.push("/myPage");
+        })
+        .catch((error) => {
+          (error: any) => {
+            alert(error.message);
+          };
+        });
     }
   };
 
@@ -179,7 +184,15 @@ const Edit = () => {
               maxRows={4}
               variant="outlined"
               value={authorComment}
-              onChange={(e) => setAuthorComment(e.target.value)}
+              onChange={(e) => {
+                if (e.target.value.length <= 300) {
+                  setAuthorComment(e.target.value);
+                } else {
+                  alert(
+                    "Comment is too long. Please enter 300 characters or less."
+                  );
+                }
+              }}
             />
             <Box sx={{ width: "100%" }}>
               <ColorRadio color={color} setColor={setColor} />
