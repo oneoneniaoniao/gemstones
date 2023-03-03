@@ -59,7 +59,6 @@ const Detail = () => {
     if (router.isReady) {
       const authorId = router.query.authorId;
       const postId = router.query.postId as string;
-      console.log(loginUserID);
       if (!authorId || !postId) {
         alert("No such post!");
         router.push("/");
@@ -97,7 +96,6 @@ const Detail = () => {
             setLoading(false);
           }
           if (querySnapshot.empty) {
-            console.log("No comments yet.");
           } else {
             const comments = querySnapshot.docs.map((doc) => ({
               id: doc.id,
@@ -124,7 +122,7 @@ const Detail = () => {
             "Your comment has been deleted!\n Do you want to reload the page to see the change?"
           )
         ) {
-          window.location.reload();
+          router.push(`${location.pathname}${location.search}`);
         }
       } catch {
         (error: any) => {
@@ -152,7 +150,7 @@ const Detail = () => {
             "Your comment has been posted!\n Do you want to reload the page to see the comment?"
           )
         ) {
-          window.location.reload();
+          router.push(`${location.pathname}${location.search}`);
         }
       })
       .catch((err) => {
@@ -161,7 +159,19 @@ const Detail = () => {
   };
 
   if (loading) {
-    return <CircularProgress />;
+    return (
+      <Box
+        sx={{
+          width: 90,
+          height: 90,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
@@ -220,9 +230,17 @@ const Detail = () => {
                 size="small"
                 variant="standard"
                 multiline
-                sx={{ borderRadius: 1, width: "100%", mt: 0.5 }}
+                sx={{ borderRadius: 1, width: "100%", mt: 1 }}
                 value={comment}
-                onChange={(e) => setComment(e.target.value)}
+                onChange={(e) =>  {
+                  if (e.target.value.length <= 100) {
+                    setComment(e.target.value);
+                  } else {
+                    alert(
+                      "Comment is too long. Please enter 100 characters or less."
+                    );
+                  }
+                }}
                 InputProps={{
                   startAdornment: (
                     <Avatar
@@ -262,7 +280,7 @@ const Detail = () => {
                 size="small"
                 variant="standard"
                 multiline
-                sx={{ borderRadius: 1, width: "100%", mt: 0.5 }}
+                sx={{ borderRadius: 1, width: "100%", mt: 1, opacity: 0.5 }}
                 value={"Please login to comment."}
                 InputProps={{
                   startAdornment: (

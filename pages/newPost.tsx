@@ -37,38 +37,42 @@ const NewPost = () => {
 
   const onChangeImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files![0]) {
+      if (e.target.files![0].size > 1000000) {
+        alert("Image size is too large. Please select an image less than 1MB.");
+        e.target.value = "";
+        return;
+      }
       setImage(e.target.files![0]);
       e.target.value = "";
     }
   };
 
-  const handleSubmit = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-    const randomChar = uuidv4();
-    const fileName = randomChar + "_" + image!.name;
-    const storageRef = ref(storage, `images/${fileName}`);
-    try {
-      await uploadBytes(storageRef, image!);
-      const url = await getDownloadURL(storageRef);
-      await addDoc(collection(db, "posts"), {
-        uid: loginUserID,
-        authorComment: comment,
-        comments: [],
-        materials: materials,
-        color: color,
-        imageURL: url,
-        category: category,
-        likedBy: [],
-        createdAt: serverTimestamp(),
-        editedAt: "",
-        imageRef: `images/${fileName}`,
-      });
-      alert("Your post has been successfully posted!");
-      router.push("/myPage");
-    } catch (err: any) {
-      alert(err.message);
+  const handleSubmit = async () => {
+    if (confirm("Would you like to post this?")) {
+      const randomChar = uuidv4();
+      const fileName = randomChar + "_" + image!.name;
+      const storageRef = ref(storage, `images/${fileName}`);
+      try {
+        await uploadBytes(storageRef, image!);
+        const url = await getDownloadURL(storageRef);
+        await addDoc(collection(db, "posts"), {
+          uid: loginUserID,
+          authorComment: comment,
+          comments: [],
+          materials: materials,
+          color: color,
+          imageURL: url,
+          category: category,
+          likedBy: [],
+          createdAt: serverTimestamp(),
+          editedAt: "",
+          imageRef: `images/${fileName}`,
+        });
+        alert("Your post has been successfully posted!");
+        router.push("/myPage");
+      } catch (err: any) {
+        alert(err.message);
+      }
     }
   };
 
@@ -143,7 +147,15 @@ const NewPost = () => {
               maxRows={4}
               variant="outlined"
               value={comment}
-              onChange={(e) => setComment(e.target.value)}
+              onChange={(e) => {
+                if (e.target.value.length <= 300) {
+                  setComment(e.target.value);
+                } else {
+                  alert(
+                    "Comment is too long. Please enter 300 characters or less."
+                  );
+                }
+              }}
             />
             <Box sx={{ width: "100%" }}>
               <ColorRadio color={color} setColor={setColor} />
@@ -154,12 +166,10 @@ const NewPost = () => {
               />
             </Box>
             <Button
-              type="submit"
+              type="button"
               variant="contained"
               sx={{ mt: 5, px: 8 }}
-              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-                handleSubmit(e)
-              }
+              onClick={handleSubmit}
               disabled={!image}
             >
               Submit

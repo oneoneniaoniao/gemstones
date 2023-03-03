@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -39,6 +40,7 @@ const EditProfileModal = ({
   setLoginUserInfo,
 }: Props) => {
   const auth = getAuth();
+  const router = useRouter()
   const LoginUserID = useAppSelector(selectLoginUserID);
   const [profile, setProfile] = React.useState("");
   const [displayName, setDisplayName] = React.useState("");
@@ -68,8 +70,12 @@ const EditProfileModal = ({
 
   const handleImageChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files![0]) {
+      if (e.target.files![0].size > 1000000) {
+        alert("Image size is too large. Please select an image less than 1MB.");
+        e.target.value = "";
+        return;
+      }
       setAvatarImage(e.target.files![0]);
-      console.log(e.target.files![0]);
       e.target.value = "";
     }
   };
@@ -105,6 +111,7 @@ const EditProfileModal = ({
       alert(error.message);
     }
     setOpenModal(false);
+    alert("Profile updated successfully!\nPlease reload the page to update all of this page.");
   };
 
   return (
@@ -147,7 +154,15 @@ const EditProfileModal = ({
               value={displayName}
               onChange={(
                 e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-              ) => setDisplayName(e.target.value)}
+              ) => {
+                if (e.target.value.length <= 16) {
+                  setDisplayName(e.target.value);
+                } else {
+                  alert(
+                    "Display name is too long. Please enter 16 characters or less."
+                  );
+                }
+              }}
               sx={{ ml: 2 }}
             />
           </Box>
@@ -159,7 +174,13 @@ const EditProfileModal = ({
             value={profile}
             onChange={(
               e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-            ) => setProfile(e.target.value)}
+            ) => {
+              if(e.target.value.length <= 300){
+                setProfile(e.target.value);
+              }else{
+                alert("Profile is too long. Please enter 300 characters or less.");
+              }
+            }}
           />
           <Box sx={{ display: "flex", width: "100%", alignItems: "center" }}>
             <Button

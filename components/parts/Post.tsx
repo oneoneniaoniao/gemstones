@@ -103,31 +103,35 @@ const Post = ({ post, users, setLikeClicked }: Props) => {
               width: "100%",
             }}
           >
-            <Box
-              sx={{
-                fontSize: "11px",
-                m: "1px",
-                px: 1,
-                py: "1px",
-                background: getColor(post.color).background,
-                color: getColor(post.color).text,
-                borderRadius: 3,
-              }}
-            >
-              {post.color}
-            </Box>
-            <Box
-              sx={{
-                fontSize: "11px",
-                m: "1px",
-                px: 1,
-                py: "1px",
-                background: "white",
-                borderRadius: 3,
-              }}
-            >
-              {post.category}
-            </Box>
+            {post.color && (
+              <Box
+                sx={{
+                  fontSize: "11px",
+                  m: "1px",
+                  px: 1,
+                  py: "1px",
+                  background: getColor(post.color).background,
+                  color: getColor(post.color).text,
+                  borderRadius: 3,
+                }}
+              >
+                {post.color}
+              </Box>
+            )}
+            {post.category && (
+              <Box
+                sx={{
+                  fontSize: "11px",
+                  m: "1px",
+                  px: 1,
+                  py: "1px",
+                  background: "white",
+                  borderRadius: 3,
+                }}
+              >
+                {post.category}
+              </Box>
+            )}
 
             {post.materials.map((material) => {
               return (

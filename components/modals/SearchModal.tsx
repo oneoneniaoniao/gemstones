@@ -29,13 +29,13 @@ const SearchModal = ({
   sort,
 }: Props) => {
   return (
-    <Modal open={openSearchModal} onClose={() => setOpenSearchModal(false)}>
+    <Modal open={openSearchModal} onClose={() => {}}>
       <Paper
         sx={{
           width: "90%",
           maxWidth: "580px",
           position: "absolute",
-          padding: "1.5rem",
+          padding: {xs:"1rem", sm:"1.5rem"},
           py: "2rem",
           top: `4rem`,
           left: `50%`,
