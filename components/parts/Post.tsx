@@ -23,9 +23,17 @@ const Post = ({ post, users, setLikeClicked }: Props) => {
   const author = users.filter((user) => user.uid === post.uid)[0];
   if (!author)
     return (
-      <>
+      <Box
+        sx={{
+          width: "360px",
+          height: "300px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <CircularProgress />
-      </>
+      </Box>
     );
 
   return (
