@@ -79,7 +79,7 @@ const NewPost = () => {
           <Box
             sx={{
               my: { xs: 0, sm: 1 },
-              pb: 10,
+              pb: 14,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -156,7 +156,7 @@ const NewPost = () => {
             <Button
               type="submit"
               variant="contained"
-              sx={{ mt: 3, px: 8 }}
+              sx={{ mt: 5, px: 8 }}
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
                 handleSubmit(e)
               }

@@ -94,7 +94,7 @@ const MyPage = () => {
           >
             <Avatar
               src={loginUserInfo?.photoURL}
-              sx={{ my: 2, width: "50px", height: "50px" }}
+              sx={{ my: 1, width: "50px", height: "50px" }}
             />
             <Typography variant="h6" sx={{ ml: 2, mr: 0.5 }}>
               {loginUserInfo?.displayName}
