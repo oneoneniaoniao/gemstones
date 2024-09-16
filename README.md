@@ -2,7 +2,8 @@
 <img width="503" alt="スクリーンショット 2023-02-27 6 06 44" src="https://user-images.githubusercontent.com/76186907/221437349-fe97664e-22c2-4c31-98ed-35561000be33.png">
 
 ## アプリ URL
-https://gemstones.vercel.app/
+https://gemstones.vercel.app/(休止中)
+
 
 ## アプリ概要
 天然石のハンドメイド作品を紹介するSNSです。
