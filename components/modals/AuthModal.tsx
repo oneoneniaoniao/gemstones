@@ -347,7 +347,7 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
                   </Typography>
                 </Grid>
               </Grid>
-              <Button
+              {/* <Button
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
@@ -355,7 +355,7 @@ const AuthModal = ({ setOpenAuthModal, openAuthModal, nextPath }: Props) => {
                 startIcon={<GoogleIcon />}
               >
                 Sign In With Google
-              </Button>
+              </Button> */}
               <Button
                 fullWidth
                 variant="outlined"
