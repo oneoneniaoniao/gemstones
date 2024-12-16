@@ -15,18 +15,18 @@ I created this app because I was into natural stone accessories for a while and 
 * email：test@test.com
 * password：111111
 
-Note: All data is for demonstration purposes only.
+Note: All data is for demonstration.
 
 ## Page Flow
-<img width="659" alt="スクリーンショット 2024-12-15 21 15 12" src="https://github.com/user-attachments/assets/a5513867-6242-45f1-8ced-d098e3c2228f" />
+<img width="654" alt="スクリーンショット 2024-12-16 11 34 33" src="https://github.com/user-attachments/assets/dc233e1d-153c-4d0e-8960-fee348b24b8a" />
 
 ## Features
-* Authentication (Sign Up/Login/Logout/Password Reset)
-* User Profile Editing (Icon Image/Username)
+* Authentication (Sign Up/ Login/ Logout/ Password Reset)
+* User Profile Editing (Icon Image/ Display Name/ Profile)
 * Create/Edit/Delete Posts
 * Like Button
 * Filter and Search
-* Comment Feature
+* Create/Delete Comments
 * User Detail Pages
 
 ## Development Environment
